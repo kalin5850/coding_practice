@@ -151,15 +151,15 @@ if __name__ == "__main__":
 
     # print(binary_tree.search(value=1))
     # print(binary_tree)
-    # print(binary_tree.breadth_first_search())
+    print(binary_tree.breadth_first_search())
     # print(
     #     binary_tree.breadth_frist_search_rescursive(
     #         queue=[binary_tree.root], result=[]
     #     )
     # )
-    binary_tree.DFSInorder()
-    binary_tree.DFSPreorder()
-    binary_tree.DFSPostorder()
+    # binary_tree.DFSInorder()
+    # binary_tree.DFSPreorder()
+    # binary_tree.DFSPostorder()
 
 ##      9
 ##   4     20
