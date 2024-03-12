@@ -42,3 +42,67 @@ def deserialize(s):
         return current_node
 
     return pre_order(iter(s.split(" ")))
+
+
+def build_tree(nodes):
+    val = next(nodes)
+    if val == "x":
+        return None
+    curr = Node(val)
+    curr.left = build_tree(nodes)
+    curr.right = build_tree(nodes)
+
+    return curr
+
+
+def print_tree(root):
+    if not root:
+        yield "x"
+        return
+    yield str(root.val)
+    yield from print_tree(root.left)
+    yield from print_tree(root.right)
+
+
+if __name__ == "__main__":
+    # tree 1
+    tree = "1 2 4 x 7 x x 5 x x 3 x 6 x x"
+    root = build_tree(iter(tree.split(" ")))
+    serrialize_tree = serialize(root)
+    print(serrialize_tree)
+    deserialize(iter(serrialize_tree.split(" ")))
+
+    #  tree 2
+    tree = "1 2 4 x 7 x x 5 x x 3 x 6 8 x x x"
+    root = build_tree(iter(tree.split(" ")))
+    serrialize_tree = serialize(root)
+    print(serrialize_tree)
+    deserialize(iter(serrialize_tree.split(" ")))
+
+    # tree 3
+    tree = "1 2 3 x x 4 x 6 x x 5 x x"
+    root = build_tree(iter(tree.split(" ")))
+    serrialize_tree = serialize(root)
+    print(serrialize_tree)
+    deserialize(iter(serrialize_tree.split(" ")))
+
+    # tree 4
+    tree = "1 2 3 x x 4 x 6 x x 5 x 7 x x"
+    root = build_tree(iter(tree.split(" ")))
+    serrialize_tree = serialize(root)
+    print(serrialize_tree)
+    deserialize(iter(serrialize_tree.split(" ")))
+
+    # tree 5
+    tree = "1 2 3 x x 4 x x 5 6 x 7 x x x"
+    root = build_tree(iter(tree.split(" ")))
+    serrialize_tree = serialize(root)
+    print(serrialize_tree)
+    deserialize(iter(serrialize_tree.split(" ")))
+
+    #  tree 6
+    tree = "1 2 3 7 x x x 4 x x 5 6 x x x"
+    root = build_tree(iter(tree.split(" ")))
+    serrialize_tree = serialize(root)
+    print(serrialize_tree)
+    deserialize(iter(serrialize_tree.split(" ")))
