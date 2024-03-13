@@ -6,7 +6,6 @@ class Node:
 
 
 def invert_binary_tree(tree: Node) -> Node:
-    # WRITE YOUR BRILLIANT CODE HERE
     def pre_order(node: Node) -> Node:
         if node == None:
             return
