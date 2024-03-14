@@ -32,21 +32,43 @@ def build_tree(nodes):
 
 if __name__ == "__main__":
     # tree 1
+    """
+                5
+              /   \  
+            4       6
+          /   \
+        3       8
+    """
     tree = "5 4 3 x x 8 x x 6 x x"
     root = build_tree(iter(tree.split(" ")))
     print(tree_max_depth(root))
 
     #  tree 2
+    """
+                1
+    """
     tree = "1 x x"
     root = build_tree(iter(tree.split(" ")))
     print(tree_max_depth(root))
 
     # tree 3
+    """
+                x
+    """
     tree = "x"
     root = build_tree(iter(tree.split(" ")))
     print(tree_max_depth(root))
 
     # tree 4
+    """
+        6
+        |
+        9
+        |
+        11
+        |
+        7
+    """
     tree = "6 x 9 x 11 x 7 x x"
     root = build_tree(iter(tree.split(" ")))
     print(tree_max_depth(root))
