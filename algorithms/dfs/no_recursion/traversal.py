@@ -25,7 +25,28 @@ def pre_order(root: Node) -> List[int]:
         else:
             break
 
-    print(result)
+    print(" -> ".join(result))
+
+
+def in_order(root: Node) -> List[int]:
+    "x -> 3 -> x -> 4 -> x -> 1 -> x -> 8 -> x -> 2 -> x -> 5 -> x -> 6 -> x -> 9 -> x"
+    " 3 -> 4 -> 1 -> 8 -> 2 -> 5 -> 6 -> 9"
+    stack = []
+    result = []
+    curr = root
+
+    while True:
+        if curr:
+            stack.append(curr)
+            curr = curr.left
+        elif stack:
+            curr = stack.pop()
+            result.append(curr.val)
+            curr = curr.right
+        else:
+            break
+
+    print(" -> ".join(result))
 
 
 def build_tree(nodes):
@@ -53,3 +74,4 @@ if __name__ == "__main__":
     tree = "5 4 3 x x 8 1 x x 2 x x 6 x 9 x x"
     root = build_tree(iter(tree.split(" ")))
     pre_order(root)
+    in_order(root)
