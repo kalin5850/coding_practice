@@ -49,6 +49,30 @@ def in_order(root: Node) -> List[int]:
     print(" -> ".join(result))
 
 
+# TODO
+def post_order(root: Node) -> List[int]:
+    "x -> x -> 3 -> x -> 1 -> x -> x -> 2 -> 8 -> 4 -> x -> x -> x -> x -> 9 -> 6 -> 5"
+    "3 -> 1 -> 2 -> 8 -> 4 -> 9 -> 6 -> 5"
+    stack1 = []
+
+    while True:
+        while root != None:
+            stack1.append(root)
+            stack1.append(root)
+            root = root.left
+
+        if len(stack1) == 0:
+            return
+
+        root = stack1.pop()
+
+        if len(stack1) > 0 and stack1[-1] == root:
+            root = root.right
+        else:
+            print(root.val, end=" ")
+            root = None
+
+
 def build_tree(nodes):
     val = next(nodes)
     if val == "x":
@@ -75,3 +99,4 @@ if __name__ == "__main__":
     root = build_tree(iter(tree.split(" ")))
     pre_order(root)
     in_order(root)
+    post_order(root)
