@@ -2,7 +2,6 @@ from typing import List
 
 
 def generate_parentheses(n: int) -> List[str]:
-    # WRITE YOUR BRILLIANT CODE HERE
     result = []
 
     def dfs(idx, path, open_counter, close_counter):
