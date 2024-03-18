@@ -42,6 +42,21 @@ def dfs_v_2(start_idx, path, [... additional_states]):
         if additional_states:
             update(... additional_states)
         dfs(start_idx + len(edge), path, [... additional_states])
+        # revert(...additional states) if necessary e.g.: permutations
         path.pop()
         
     return
+
+# aggregate
+def dfs_v_3(start_idx, [...additional_states]):
+    if is_leaf(start_idx):
+        return 1
+    ans = initial_value
+    for edge in get_edge(start_idx, [...additional_states]):
+        if additional_states:
+            update([...additional_states])
+        ans = aggregate(ans, dfs(start_idx + len(edge), [...additional_states]))
+        if additional_states:
+            revert([...additional_states])
+    
+    return ans
