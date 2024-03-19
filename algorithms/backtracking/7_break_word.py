@@ -9,7 +9,7 @@ def word_break(s: str, words: List[str]) -> bool:
             return True
 
         if idx in cached:
-            return cached[id]
+            return cached[idx]
 
         ans = False
         for i, prefix in enumerate(words):
@@ -25,8 +25,8 @@ def word_break(s: str, words: List[str]) -> bool:
 
 if __name__ == "__main__":
     # s = input()
-    s = "algomonster"
+    s = "aab"
     # words = input().split()
-    words = ["algo", "monster"]
+    words = ["a", "aa", "b"]
     res = word_break(s, words)
     print("true" if res else "false")
