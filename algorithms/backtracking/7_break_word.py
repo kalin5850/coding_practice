@@ -1,6 +1,7 @@
 from typing import List
 
 
+# approach 1: backtracking
 def word_break(s: str, words: List[str]) -> bool:
     cached = {}
 
@@ -21,6 +22,10 @@ def word_break(s: str, words: List[str]) -> bool:
         return ans
 
     return backtracking(0)
+
+
+# dynamic programming
+# TODO
 
 
 if __name__ == "__main__":
