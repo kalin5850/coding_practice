@@ -23,7 +23,6 @@ from typing import List
 
 
 def coin_change(coins: List[int], amount: int) -> int:
-    # WRITE YOUR BRILLIANT CODE HERE
 
     def backtracking(cached, remain):
         if remain in cached:
