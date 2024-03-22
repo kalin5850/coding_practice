@@ -1,3 +1,4 @@
+from collections import deque
 from typing import List
 
 
@@ -10,15 +11,14 @@ class Node:
 
 def level_order_traversal(root: Node) -> List[List[int]]:
     result = []
-    queue = []
-    queue.append(root)
+    queue = deque([root])
 
     while len(queue):
         n = len(queue)
         tmp = []
 
         for _ in range(n):
-            curr = queue.pop(0)
+            curr = queue.popleft()
             tmp.append(curr.val)
             if curr.left:
                 queue.append(curr.left)
