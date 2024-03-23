@@ -29,3 +29,11 @@ def bfs(root):
                 queue.append(neighbor)
                 visited.add(neighbor)
         level += 1
+
+
+def dfs(root, visited):
+    for neighbor in get_neighbors(root):
+        if neighbor in visited:
+            continue
+        visited.add(neighbor)
+        dfs(neighbor, visited)
