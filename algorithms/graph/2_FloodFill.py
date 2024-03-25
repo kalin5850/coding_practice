@@ -45,10 +45,32 @@ to
 from collections import deque
 from typing import List, Set
 
+
+def floodFile(r: int, c: int, replacement: int, image: List[List[int]]) -> List[List[int]]:
+    
+    start_color = image[r][c]
+    
+    def dfs(r, c):
+        if (
+            r < 0 or r > len(image) - 1 or 
+            c < 0 or c > len(image[0]) - 1 or 
+            image[r][c] != start_color
+        ):
+            return
+        
+        image[r][c] = replacement
+        dfs(r + 1, c)
+        dfs(r - 1, c)
+        dfs(r, c + 1)
+        dfs(r, c - 1)
+           
+    dfs(r, c)
+    return image
+
 def flood_fill(r: int, c: int, replacement: int, image: List[List[int]]) -> List[List[int]]:
     num_rows, num_cols = len(image), len(image[0])
     
-    def get_neighbors(coord: Set[int, int], color: int) -> Set[int, int] :
+    def get_neighbors(coord, color: int):
         row, col = coord
         delta_row = [-1, 0, 1, 0]
         delta_col = [0, 1, 0, -1]
@@ -88,6 +110,10 @@ if __name__ == '__main__':
     c = 2
     replacement = 9
     image = [[0,1,3,4,1],[3,8,8,3,3],[6,7,8,8,3],[12,2,8,9,1],[12,3,1,3,2]]
-    res = flood_fill(r, c, replacement, image)
+    # res = flood_fill(r, c, replacement, image)
+    # for row in res:
+    #     print(' '.join(map(str, row)))
+    
+    res = floodFile(r, c, replacement, image)
     for row in res:
         print(' '.join(map(str, row)))
