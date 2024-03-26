@@ -6,7 +6,6 @@ from collections import deque
 from typing import List
 
 def count_number_of_islands(grid: List[List[int]]) -> int:
-    # WRITE YOUR BRILLIANT CODE HERE
     num_rows, num_cols = len(grid), len(grid[0])
     count_island = 0
     
