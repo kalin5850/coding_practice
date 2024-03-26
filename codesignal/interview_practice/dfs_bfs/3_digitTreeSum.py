@@ -105,8 +105,7 @@ def solution(t):
         path.append(str(node.value))
         if node.left == None and node.right == None:
             result.append(int("".join(path)))
-        if node.left != None:
-            dfs(node.left, path)
+        dfs(node.left, path)
         dfs(node.right, path)
         path.pop()
         
