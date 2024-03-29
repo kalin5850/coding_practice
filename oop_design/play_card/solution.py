@@ -31,20 +31,16 @@ class Card:
 
 class Game:
     def __init__(self):
-        # Implement initializer here
         self.__list = []
 
     def add_card(self, suit: str, value: str) -> None:
-        # Implement function here
         card = Card(suit, value)
         self.__list.append(card)
 
     def card_string(self, card: int) -> str:
-        # Implement function here
         return self.__list[card]
 
     def card_beats(self, card_a: int, card_b: int) -> bool:
-        # Implement function here
         return self.__list[card_a] > self.__list[card_b]
 
 
