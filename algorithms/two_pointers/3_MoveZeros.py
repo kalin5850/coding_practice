@@ -2,7 +2,6 @@ from typing import List
 
 
 def move_zeros(nums: List[int]) -> None:
-    # WRITE YOUR BRILLIANT CODE HERE
     idx_i = 0  # check 0
     idx_j = 0  # check non-zero
 
