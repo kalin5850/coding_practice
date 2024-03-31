@@ -5,7 +5,6 @@ class Node:
 
 
 def middle_of_linked_list(head: Node) -> int:
-    # WRITE YOUR BRILLIANT CODE HERE
     slow = head
     fast = head
 
