@@ -18,11 +18,8 @@ def two_sum_sorted(arr: List[int], target: int) -> List[int]:
 
     while True:
         if (arr[left] + arr[right]) == target:
-            return left, right
+            return [left, right]
         elif (arr[left] + arr[right]) > target:
             right -= 1
         elif (arr[left] + arr[right]) < target:
             left += 1
-
-    # print((left, right))
-    return [left, right]
