@@ -10,7 +10,6 @@ Input: A brown fox jumping over Output: False
 
 
 def is_palindrome(s: str) -> bool:
-    # WRITE YOUR BRILLIANT CODE HERE
     s = s.replace(" ", "").lower()
     left, right = 0, len(s) - 1
 
