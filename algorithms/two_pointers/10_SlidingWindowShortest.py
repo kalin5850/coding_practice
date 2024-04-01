@@ -23,4 +23,4 @@ def subarray_sum_shortest(nums: List[int], target: int) -> int:
             slow += 1
             fast += 1
 
-    return min_lengt
+    return min_length
