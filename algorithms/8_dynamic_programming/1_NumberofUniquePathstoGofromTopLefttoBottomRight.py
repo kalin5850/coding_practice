@@ -29,6 +29,23 @@ Output: 15
 """
 
 
+#  dfs and cached
+def unique_paths(m: int, n: int) -> int:
+    # WRITE YOUR BRILLIANT CODE HERE
+
+    def dfs(node, count, cached):
+        row, col = node
+        if (row, col) in cached:
+            return cached[(row, col)]
+        if row == m - 1 or col == n - 1:
+            return 1
+
+        count = dfs((row + 1, col), count, cached) + dfs((row, col + 1), count, cached)
+        cached[(row, col)] = count
+
+        return count
+
+
 # dfs
 def unique_paths(m: int, n: int) -> int:
 
