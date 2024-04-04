@@ -1,6 +1,21 @@
 from typing import List
 
 
+# bottom to top
+def minimum_total(triangle: List[List[int]]) -> int:
+    dp = [[float("inf") for _ in range(len(triangle))] for _ in range(len(triangle))]
+
+    # base
+    for col in range(len(triangle)):
+        dp[len(triangle) - 1][col] = triangle[len(triangle) - 1][col]
+
+    for r in range(len(triangle) - 2, -1, -1):
+        for c in range(0, r + 1):
+            dp[r][c] = min(dp[r + 1][c], dp[r + 1][c + 1]) + triangle[r][c]
+
+    return dp[0][0]
+
+
 # top to bottom
 def minimum_total(triangle: List[List[int]]) -> int:
     dp = [[float("inf") for _ in range(len(triangle))] for _ in range(len(triangle))]
