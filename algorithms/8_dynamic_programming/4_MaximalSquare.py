@@ -1,7 +1,7 @@
 from typing import List
 
 
-# dynamic programming
+# dynamic programming bottom to up
 def maximal_square(matrix: List[List[int]]) -> int:
     dp = [[0 for _ in range(len(matrix[0]))] for _ in range(len(matrix))]
     max_value = -1
