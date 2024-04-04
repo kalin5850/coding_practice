@@ -1,6 +1,27 @@
 from typing import List
 
 
+# dynamic programming
+def maximal_square(matrix: List[List[int]]) -> int:
+    dp = [[0 for _ in range(len(matrix[0]))] for _ in range(len(matrix))]
+    max_value = -1
+    # base
+    for r in range(len(matrix)):
+        dp[r][len(matrix[0]) - 1] = matrix[r][len(matrix[0]) - 1]
+    for c in range(len(matrix[0])):
+        dp[len(matrix) - 1][c] = matrix[len(matrix) - 1][c]
+
+    for r in range(len(matrix) - 2, -1, -1):
+        for c in range(len(matrix[0]) - 2, -1, -1):
+            right = dp[r][c + 1]
+            down = dp[r + 1][c]
+            diag = dp[r + 1][c + 1]
+            dp[r][c] = matrix[r][c] + min(right, down, diag)
+            max_value = max(max_value, dp[r][c])
+
+    return max_value**2
+
+
 #  dfs + cached
 def maximal_square(matrix: List[List[int]]) -> int:
     cached = {}
