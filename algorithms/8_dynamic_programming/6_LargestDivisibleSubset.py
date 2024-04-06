@@ -1,6 +1,24 @@
 from typing import List
 
 
+# dp
+def find_largest_subset(nums: List[int]) -> int:
+    nums.sort()
+    dp = [[] for _ in range(len(nums))]
+    max_length = 0
+
+    for i in range(len(nums) - 1, -1, -1):
+        dp[i].append(nums[i])
+        for j in range(i - 1, -1, -1):
+            if min(dp[i]) % nums[j] == 0:
+                dp[i].append(nums[j])
+
+        max_length = max(max_length, len(dp[i]))
+
+    return max_length
+
+
+# recursion
 def find_largest_subset(nums: List[int]) -> int:
     nums.sort()
     result = []
