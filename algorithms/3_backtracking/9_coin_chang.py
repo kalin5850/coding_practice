@@ -22,6 +22,29 @@ Output: -1
 from typing import List
 
 
+# brute force
+def list_all_coin_change(coins: List[int], amount: int) -> int:
+    all_changes = []
+
+    def dfs(idx: int, path: List[int], remaining: int) -> int:
+        if remaining == 0:
+            all_changes.append(path[:])
+            return
+
+        if coins[idx] > amount or idx < 0 or remaining < 0:
+            return
+
+        for i in range(len(coins) - 1, -1, -1):
+            path.append(coins[i])
+            dfs(i - 1, path, remaining - coins[i])
+            path.pop()
+
+        return
+
+    dfs(len(coins) - 1, [], amount)
+    print(all_changes)
+
+
 def coin_change(coins: List[int], amount: int) -> int:
 
     def backtracking(cached, remain):
@@ -52,3 +75,5 @@ if __name__ == "__main__":
     amount = 11
     res = coin_change(coins, amount)
     print(res)
+
+    list_all_coin_change(coins, amount)
