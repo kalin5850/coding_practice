@@ -49,13 +49,28 @@ def perfect_squares(n: int) -> int:
     return 0
 
 
+#  dp
+def perfect_squares(n: int) -> int:
+    dp = [n] * (n + 1)
+    dp[0] = 0
+
+    for target in range(1, n + 1):
+        for s in range(1, target + 1):
+            square = s**2
+            if target - square < 0:
+                break
+            dp[target] = min(dp[target], dp[target - square] + 1)
+
+    return dp[n]
+
+
 if __name__ == "__main__":
-    # n = 12
-    # res = list_perfect_squares(n)
-    # print(res)
-    n = 13
+    n = 12
     res = perfect_squares(n)
     print(res)
+    # n = 13
+    # res = perfect_squares(n)
+    # print(res)
     # n = 10000
     # res = perfect_squares(n)
     # print(res)
