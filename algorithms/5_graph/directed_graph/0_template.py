@@ -16,7 +16,7 @@ def create_graph(tasks, requirements):
         if n > 1:
             for i in range(n - 1):
                 j = i + 1
-                graph[edge[i]] = edge[j]
+                graph[edge[i]].append(edge[j])
 
     return graph
 
