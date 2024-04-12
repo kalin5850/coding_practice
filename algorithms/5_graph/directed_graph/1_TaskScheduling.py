@@ -21,7 +21,6 @@ from typing import List
 
 
 def task_scheduling(tasks: List[str], requirements: List[List[str]]) -> List[str]:
-    # WRITE YOUR BRILLIANT CODE HERE
     graph = {node: [] for node in tasks}
 
     def find_degree(graph):
