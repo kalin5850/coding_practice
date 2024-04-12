@@ -9,6 +9,18 @@ from collections import deque
 """
 
 
+def create_graph(tasks, requirements):
+    graph = {node: [] for node in tasks}
+    for edge in requirements:
+        n = len(edge)
+        if n > 1:
+            for i in range(n - 1):
+                j = i + 1
+                graph[edge[i]] = edge[j]
+
+    return graph
+
+
 def find_degree(graph):
     indegree = {node: 0 for node in graph}
     for node in graph:
