@@ -1,3 +1,7 @@
+"""
+Spade > Heart > Diamond > Club
+"""
+
 from enum import Enum, auto
 
 
@@ -10,10 +14,10 @@ class Suit(Enum):
 
 class Card:
     SUITS = {
-        "Hearts": Suit.HEARTS,
         "Spades": Suit.SPADES,
-        "Clubs": Suit.CLUBS,
+        "Hearts": Suit.HEARTS,
         "Diamonds": Suit.DIAMONDS,
+        "Clubs": Suit.CLUBS,
     }
     VALUES = {"A": 1, **{str(i): i for i in range(2, 11)}, "J": 11, "Q": 12, "K": 13}
     VALUE_KEYS = {value: key for key, value in VALUES.items()}
@@ -25,7 +29,7 @@ class Card:
     def __str__(self) -> str:
         return "%s of %s" % (self.VALUE_KEYS[self.__value], self.__suit.value)
 
-    def __lt__(self, other):
+    def __gt__(self, other):
         return self.__value > other.__value
 
 
