@@ -1,3 +1,7 @@
+"""
+Spade > Heart > Diamond > Club
+"""
+
 from enum import Enum
 
 
@@ -6,15 +10,15 @@ class CardBase:
     def value(self) -> int:
         raise NotImplementedError()
 
-    def __lt__(self, other) -> bool:
-        return self.value < other.value
+    def __gt__(self, other) -> bool:
+        return self.value > other.value
 
 
 class Suit(Enum):
-    HEARTS = "Hearts"
     SPADES = "Spades"
-    CLUBS = "Clubs"
+    HEARTS = "Hearts"
     DIAMONDS = "Diamonds"
+    CLUBS = "Clubs"
 
 
 class Card(CardBase):
@@ -58,7 +62,7 @@ class Joker(CardBase):
         return self.__value
 
     def __str__(self) -> str:
-        return "%s of Joker" % (self.COLORS[self.__color].value)
+        return "%s Joker" % (self.COLORS[self.__color].value)
 
 
 class Game:
