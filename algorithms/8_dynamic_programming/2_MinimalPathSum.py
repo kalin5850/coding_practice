@@ -1,4 +1,44 @@
+"""
+Suppose we have a m by n matrix filled with non-negative integers, find a path from top left corner to bottom right corner which minimizes the sum of all numbers along its path.
+
+Note: Movements can only be either down or right at any point in time.
+
+Example:
+
+Input:
+
+  [
+    [1,3,1],
+    [1,5,1],
+    [4,2,1]
+  ]
+
+Output:
+
+7
+"""
+
 from typing import List
+
+
+def min_path_sum(grid: List[List[int]]) -> int:
+    m, n = len(grid), len(grid[0])
+
+    def dfs(row, col, path: List[int], result: List[int]) -> List[int]:
+        # trick: because need to get grid[m][n], col == n not col == n - 1
+        if row == m - 1 and col == n:
+            result.append(sum(path))
+            return result
+        if row == m or col == n:
+            return result
+        path.append(grid[row][col])
+        dfs(row + 1, col, path, result)
+        dfs(row, col + 1, path, result)
+        path.pop()  # backtracking
+
+        return min(result)
+
+    return dfs(0, 0, [], [])
 
 
 def min_path_sum(grid: List[List[int]]) -> int:
