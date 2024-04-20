@@ -68,10 +68,7 @@ def unique_paths(m: int, n: int) -> int:
         row, col = node
         if row == m - 1 or col == n - 1:
             return 1
-
-        count = dfs((row + 1, col), count) + dfs((row, col + 1), count)
-
-        return count
+        return dfs((row + 1, col), count) + dfs((row, col + 1), count)
 
     return dfs((0, 0), 0)
 
