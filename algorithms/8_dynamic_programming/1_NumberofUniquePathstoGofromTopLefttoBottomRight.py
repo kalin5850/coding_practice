@@ -48,14 +48,16 @@ def unique_paths(m: int, n: int) -> int:
 #  dfs and cached
 def unique_paths(m: int, n: int) -> int:
 
-    def dfs(node, count, cached):
-        row, col = node
+    # top-down with memorization. DFS + pruning (if needed) + memoization
+    def dfs_memory(row: int, col: int, cached: tuple[int, int]) -> int:
         if (row, col) in cached:
             return cached[(row, col)]
-        if row == m - 1 or col == n - 1:
+        if row == m - 1 and col == n - 1:
             return 1
-
-        count = dfs((row + 1, col), count, cached) + dfs((row, col + 1), count, cached)
+        # pruning
+        if row == m or col == n:
+            return 0
+        count = dfs_memory(row, col + 1, cached) + dfs_memory(row + 1, col, cached)
         cached[(row, col)] = count
 
         return count
@@ -64,11 +66,14 @@ def unique_paths(m: int, n: int) -> int:
 # dfs
 def unique_paths(m: int, n: int) -> int:
 
-    def dfs(node, count):
-        row, col = node
-        if row == m - 1 or col == n - 1:
+    def dfs(row: int, col: int) -> int:
+        if row == m - 1 and col == n - 1:
             return 1
-        return dfs((row + 1, col), count) + dfs((row, col + 1), count)
+        # pruning
+        if row == m or col == n:
+            return 0
+
+        return dfs(row, col + 1) + dfs(row + 1, col)
 
     return dfs((0, 0), 0)
 
