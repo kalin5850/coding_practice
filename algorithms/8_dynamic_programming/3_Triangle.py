@@ -33,24 +33,35 @@ def minimum_total(triangle: List[List[int]]) -> int:
     return min(dp[len(triangle) - 1])
 
 
-# Brute force
 def minimum_total(triangle: List[List[int]]) -> int:
-    result = []
 
-    def dfs(node, total):
-        row, col = node
-        if row >= len(triangle) or col >= len(triangle):
-            return result.append(total)
+    # bottom-up recursion
+    def dfs_bottom_up(row: int, col: int, total: int) -> int:
+        """
+        If the function returns the local variable, that variable have to be in the arguement; otherwise, UnboundLocalError: cannot access local variable 'total' where it is not associated with a value.
 
-        # left: row + 1, right: row + 1 and col + 1
-        dfs((row + 1, col), total + triangle[row][col])
-        dfs((row + 1, col + 1), total + triangle[row][col])
+            def dfs(row: int, col: int) -> int:
+                if row == m - 1:
+                    return triangle[row][col]
 
-        return
+                total += min(
+                    dfs(row + 1, col) + triangle[row][col],
+                    dfs(row + 1, col + 1) + triangle[row][col],
+                )
 
-    dfs((0, 0), 0)
+                return total
+        """
+        if row == m - 1:
+            return triangle[row][col]
 
-    return min(result)
+        total += min(
+            dfs_bottom_up(row + 1, col, total) + triangle[row][col],
+            dfs_bottom_up(row + 1, col + 1, total) + triangle[row][col],
+        )
+
+        return total
+
+    return dfs_bottom_up(0, 0, 0)
 
 
 if __name__ == "__main__":
