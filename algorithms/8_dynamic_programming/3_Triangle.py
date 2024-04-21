@@ -36,6 +36,21 @@ def minimum_total(triangle: List[List[int]]) -> int:
 def minimum_total(triangle: List[List[int]]) -> int:
     m = len(triangle)
 
+    # top-bottom: list all path
+    def dfs_top_bottom_all_path(
+        row: int, col: int, path: List[int], result: List[int]
+    ) -> List[int]:
+        print("row: %s and col: %s" % (row, col))
+        if row >= m or col > len(triangle[row - 1]):
+            result.append(path[:])
+            return result
+        path.append(triangle[row][col])
+        dfs_top_bottom_all_path(row + 1, col, path, result)
+        dfs_top_bottom_all_path(row + 1, col + 1, path, result)
+        path.pop()
+
+        return result
+
     # top-bottom
     def dfs_top_bottom(row: int, col: int, total: int, result: List[int]) -> List[int]:
         if row >= m:
