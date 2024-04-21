@@ -34,6 +34,17 @@ def minimum_total(triangle: List[List[int]]) -> int:
 
 
 def minimum_total(triangle: List[List[int]]) -> int:
+    m = len(triangle)
+
+    # top-bottom
+    def dfs_top_bottom(row: int, col: int, total: int, result: List[int]) -> List[int]:
+        if row >= m:
+            result.append(total)
+            return result
+        dfs_top_bottom(row + 1, col, total + triangle[row][col], result)
+        dfs_top_bottom(row + 1, col + 1, total + triangle[row][col], result)
+
+        return result
 
     # bottom-up recursion
     def dfs_bottom_up(row: int, col: int, total: int) -> int:
@@ -61,7 +72,7 @@ def minimum_total(triangle: List[List[int]]) -> int:
 
         return total
 
-    return dfs_bottom_up(0, 0, 0)
+    return dfs_bottom_up(0, 0, 0), min(dfs_top_bottom(0, 0, 0, []))
 
 
 if __name__ == "__main__":
