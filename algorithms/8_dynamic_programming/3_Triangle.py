@@ -1,21 +1,6 @@
 from typing import List, Dict
 
 
-# bottom to top
-def minimum_total(triangle: List[List[int]]) -> int:
-    dp = [[float("inf") for _ in range(len(triangle))] for _ in range(len(triangle))]
-
-    # base
-    for col in range(len(triangle)):
-        dp[len(triangle) - 1][col] = triangle[len(triangle) - 1][col]
-
-    for r in range(len(triangle) - 2, -1, -1):
-        for c in range(0, r + 1):
-            dp[r][c] = min(dp[r + 1][c], dp[r + 1][c + 1]) + triangle[r][c]
-
-    return dp[0][0]
-
-
 # top to bottom
 def minimum_total(triangle: List[List[int]]) -> int:
     dp = [[float("inf") for _ in range(len(triangle))] for _ in range(len(triangle))]
@@ -34,7 +19,22 @@ def minimum_total(triangle: List[List[int]]) -> int:
 
 
 def minimum_total(triangle: List[List[int]]) -> int:
-    m = len(triangle)
+    m, n = len(triangle), len(triangle[-1])
+
+    #  dynamic programing with bottom-up
+    def dp_bottom_up(triangle: List[List[int]]):
+        # create tabulation
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        # base case
+        for c in range(n):
+            dp[m - 1][c] = triangle[m - 1][c]
+
+        for r in range(m - 2, -1, -1):
+            for c in range(n):
+                if c < len(triangle[r]):
+                    dp[r][c] = min(dp[r + 1][c], dp[r + 1][c + 1]) + triangle[r][c]
+
+        return dp[0][0]
 
     # bottom-up recursion with cached
     def dfs_bottom_up_cached(
@@ -104,7 +104,12 @@ def minimum_total(triangle: List[List[int]]) -> int:
 
         return total
 
-    return dfs_bottom_up(0, 0, 0), min(dfs_top_bottom(0, 0, 0, []))
+    return (
+        dfs_bottom_up(0, 0, 0),
+        min(dfs_top_bottom(0, 0, 0, [])),
+        dfs_bottom_up_cached(0, 0, 0, {}),
+        dp_bottom_up(triangle),
+    )
 
 
 if __name__ == "__main__":
