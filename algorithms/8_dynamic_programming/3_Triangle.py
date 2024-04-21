@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 
 # bottom to top
@@ -35,6 +35,23 @@ def minimum_total(triangle: List[List[int]]) -> int:
 
 def minimum_total(triangle: List[List[int]]) -> int:
     m = len(triangle)
+
+    # bottom-up recursion with cached
+    def dfs_bottom_up_cached(
+        row: int, col: int, total: int, cached: Dict[int, int]
+    ) -> int:
+        if (row, col) in cached:
+            return cached[(row, col)]
+        if row == m - 1:
+            return triangle[row][col]
+
+        total += min(
+            dfs_bottom_up_cached(row + 1, col, total, cached) + triangle[row][col],
+            dfs_bottom_up_cached(row + 1, col + 1, total, cached) + triangle[row][col],
+        )
+        cached[(row, col)] = total
+
+        return total
 
     # top-bottom: list all path
     def dfs_top_bottom_all_path(
