@@ -1,4 +1,47 @@
+from collections import deque
 from typing import List
+
+
+def bfs(matrix: List[List[int]]) -> int:
+    m, n = len(matrix), len(matrix[0])
+    max_square = 1
+
+    def get_neighbor(node) -> List:
+        result = []
+        row, col = node
+        if row < m - 1 and col < n - 1:
+            result.append((row, col + 1))
+            result.append((row + 1, col))
+            result.append((row + 1, col + 1))
+
+        return result
+
+    def find_max_square(node: tuple[int, int]) -> int:
+        nonlocal max_square
+        square = 1
+        queue = deque([node])
+        while len(queue):
+            tmp = []
+            n = len(queue)
+            neighbors = []
+            for _ in range(n):
+                curr = queue.popleft()
+                neighbors = get_neighbor(curr)
+                for neighbor in neighbors:
+                    r, c = neighbor
+                    tmp.append(matrix[r][c])
+                    queue.append(neighbor)
+            if len(tmp) > 2 and all(tmp):
+                square += 1
+                max_square = max(max_square, square)
+
+        return max_square
+
+    for r in range(m):
+        for c in range(n):
+            if matrix[r][c] == 1:
+                max_square = find_max_square((r, c))
+    return max_square**2
 
 
 # dynamic programming bottom to up
