@@ -35,6 +35,23 @@ from typing import List
 
 
 def longest_sub_len(nums: List[int]) -> int:
+
+    def two_pointers(nums: List[int]) -> int:
+        max_length = 0
+        # result = []
+        for curr, value in enumerate(nums):
+            prev = curr
+            tmp = [value]
+            for check in range(curr, len(nums)):
+                if nums[check] > nums[prev]:
+                    prev = check
+                    tmp.append(nums[check])
+            # result.append(tmp[:])
+            max_length = max(max_length, len(tmp))
+
+        # print(result)
+        return max_length
+
     longest_ln = 0
     if not nums:
         return longest_ln
@@ -56,7 +73,7 @@ def longest_sub_len(nums: List[int]) -> int:
         dp[idx] = tmp
         longest_ln = max(longest_ln, len(tmp))
 
-    return longest_ln
+    return two_pointers(nums), longest_ln
 
 
 if __name__ == "__main__":
