@@ -35,48 +35,20 @@ from typing import List
 
 
 def longest_sub_len(nums: List[int]) -> int:
+    dp = [1] * len(nums)
 
-    def two_pointers(nums: List[int]) -> int:
-        max_length = 0
-        # result = []
-        for curr, value in enumerate(nums):
-            prev = curr
-            tmp = [value]
-            for check in range(curr, len(nums)):
-                if nums[check] > nums[prev]:
-                    prev = check
-                    tmp.append(nums[check])
-            # result.append(tmp[:])
-            max_length = max(max_length, len(tmp))
+    for i in range(len(nums) - 1, -1, -1):
+        for j in range(i + 1, len(nums)):
+            if nums[j] > nums[i]:
+                dp[i] = max(dp[i], 1 + dp[j])
 
-        # print(result)
-        return max_length
-
-    longest_ln = 0
-    if not nums:
-        return longest_ln
-
-    dp = [0 for _ in range(len(nums))]
-
-    # bottom to top
-    # base
-    dp[len(nums) - 1] = [nums[len(nums) - 1]]
-
-    for idx in range(len(nums) - 2, -1, -1):
-        tmp = []
-        current_value = nums[idx]
-        tmp.append(current_value)
-        for num in dp[idx + 1]:
-            if num > current_value:
-                tmp.append(num)
-
-        dp[idx] = tmp
-        longest_ln = max(longest_ln, len(tmp))
-
-    return two_pointers(nums), longest_ln
+    return max(dp)
 
 
 if __name__ == "__main__":
+    nums = [1, 100, 2, 7, 40, 80]  # should be 5 [1, 2, 7, 40, 80]
+    res = longest_sub_len(nums)
+    print(res)
     nums = [50, 3, 10, 7, 40, 80]
     res = longest_sub_len(nums)
     print(res)
