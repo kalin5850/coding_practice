@@ -20,31 +20,19 @@ def find_largest_subset(nums: List[int]) -> int:
 
 # recursion
 def find_largest_subset(nums: List[int]) -> int:
-    nums.sort()
-    result = []
-    max_length = 0
 
-    def dfs(idx: int, path: List[int]) -> None:
-        nonlocal max_length
-        if idx < 0:
-            result.append(path[:])
-            max_length = max(max_length, len(path))
-            return
-
-        if min(path) % nums[idx] == 0:
-            path.append(nums[idx])
-        dfs(idx - 1, path)
-
-        return
-
-    for i in range(len(nums) - 1, -1, -1):
-        path = [nums[i]]
-        dfs(i - 1, path)
-
-    print(max_length)
-    return max_length
+    def dfs(idx: int, path: List[int], max_length: int) -> int:
+        if idx == -1:
+            return max(max_length, len(path))
+        for j in range(idx, -1, -1):
+            if len(path) == 0 or path[-1] % nums[j] == 0:
+                path.append(nums[j])
+                max_length = dfs(j - 1, path, max_length)
+                path.pop()
+        return max_length
 
 
+# list all paths
 def find_largest_subset(nums: List[int]) -> List[List[int]]:
     nums.sort()
     res = []
