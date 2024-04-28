@@ -45,6 +45,22 @@ def find_largest_subset(nums: List[int]) -> int:
     return max_length
 
 
+def find_largest_subset(nums: List[int]) -> List[List[int]]:
+    nums.sort()
+    res = []
+
+    def list_all_path(idx: int, path: List[int]) -> List[int]:
+        if idx == -1:
+            res.append(path[:])
+            return
+        for j in range(idx, -1, -1):
+            if len(path) == 0 or path[-1] % nums[j] == 0:
+                path.append(nums[j])
+                list_all_path(j - 1, path)
+                path.pop()
+        return
+
+
 if __name__ == "__main__":
     nums = [8, 9, 4, 2, 12, 1, 3]
     res = find_largest_subset(nums)
