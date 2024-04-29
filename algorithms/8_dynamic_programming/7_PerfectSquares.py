@@ -5,6 +5,22 @@ from typing import List
 def list_perfect_squares(n: int) -> int:
     nums = list(reversed([i for i in range(1, int(math.sqrt(n)) + 1)]))
 
+    # dp 2
+    def dynamic_programing():
+        dp = [0 for i in range(n + 1)]
+        dp[1] = 1
+
+        for i in range(1, n + 1):
+            tmp = []
+            for num in nums:
+                remain = i - num**2
+                if remain >= 0:
+                    tmp.append(1 + dp[remain])
+            dp[i] = min(tmp)
+
+        print(dp)
+        return dp[-1]
+
     def bfs(n: int, edges: List[int]):
         """
         The idea is to find the minimun path.
@@ -69,7 +85,7 @@ def perfect_squares(n: int) -> int:
     return 0
 
 
-#  dp
+#  dp 1
 def perfect_squares(n: int) -> int:
     dp = [n] * (n + 1)
     dp[0] = 0
