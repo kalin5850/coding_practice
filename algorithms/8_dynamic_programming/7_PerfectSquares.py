@@ -3,26 +3,24 @@ from typing import List
 
 
 def list_perfect_squares(n: int) -> int:
-    val = math.sqrt(n)
-    values = [i for i in range(1, int(val) + 1)]
-    result = []
+    nums = list(reversed([i for i in range(1, int(math.sqrt(n)) + 1)]))
 
-    def dfs(idx: int, path: List[int], remaining: int):
-        if remaining == 0:
-            result.append(path[:])
-            return
+    def list_all_paths(
+        amount: int, path: List[int], res: List[List[int]]
+    ) -> List[List[int]]:
+        if amount == 0:
+            res.append(path[:])
+            return res
+        for num in nums:
+            remain = amount - pow(num, 2)
+            if remain >= 0:
+                path.append(num)
+                list_all_paths(remain, path, res)
+                path.pop()
 
-        if values[idx] > remaining or idx < 0 or remaining < 0:
-            return
+        return res
 
-        for i in range(len(values) - 1, -1, -1):
-            path.append(values[i])
-            dfs(i - 1, path, remaining - values[i] ** 2)
-            path.pop()
-
-    dfs(len(values) - 1, [], n)
-    print(result)
-    return 0
+    print(list_all_paths(n, [], []))
 
 
 def perfect_squares(n: int) -> int:
@@ -68,21 +66,21 @@ if __name__ == "__main__":
     n = 12
     res = perfect_squares(n)
     print(res)
-    # n = 13
-    # res = perfect_squares(n)
-    # print(res)
-    # n = 10000
-    # res = perfect_squares(n)
-    # print(res)
-    # n = 5360
-    # res = perfect_squares(n)
-    # print(res)
-    # n = 2167
-    # res = perfect_squares(n)
-    # print(res)
-    # n = 9997
-    # res = perfect_squares(n)
-    # print(res)
-    # n = 50
-    # res = list_perfect_squares(n)
-    # print(res)
+    n = 13
+    res = perfect_squares(n)
+    print(res)
+    n = 10000
+    res = perfect_squares(n)
+    print(res)
+    n = 5360
+    res = perfect_squares(n)
+    print(res)
+    n = 2167
+    res = perfect_squares(n)
+    print(res)
+    n = 9997
+    res = perfect_squares(n)
+    print(res)
+    n = 43
+    res = list_perfect_squares(n)
+    print(res)
