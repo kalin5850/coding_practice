@@ -6,6 +6,9 @@ def list_perfect_squares(n: int) -> int:
     nums = list(reversed([i for i in range(1, int(math.sqrt(n)) + 1)]))
 
     def bfs(n: int, edges: List[int]):
+        """
+        start the bigger number, return the first time where happens the amount is zeor
+        """
         from collections import deque
 
         res = []
