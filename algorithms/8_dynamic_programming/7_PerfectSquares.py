@@ -7,6 +7,7 @@ def list_perfect_squares(n: int) -> int:
 
     def bfs(n: int, edges: List[int]):
         """
+        The idea is to find the minimun path.
         start the bigger number, return the first time where happens the amount is zeor
         """
         from collections import deque
