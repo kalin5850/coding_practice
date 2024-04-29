@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 
 # dp
@@ -18,9 +18,30 @@ def find_largest_subset(nums: List[int]) -> int:
     return max_length
 
 
+# recursion with cached
+def find_largest_subset(nums: List[int]) -> int:
+    cached = {}
+
+    def dfs_cached(idx: int, cached: Dict[int, int]) -> int:
+        if idx == -1:
+            return 0
+        if nums[idx] in cached:
+            return cached[nums[idx]]
+        for j in range(idx, -1, -1):
+            if nums[idx] % nums[j] == 0:
+                dfs_cached(j - 1, cached)
+                cached[nums[idx]] = max(
+                    cached.get(nums[idx], 0), 1 + cached.get(nums[j], 0)
+                )
+
+        return cached[nums[idx]]
+
+    dfs_cached(len(nums) - 1, cached)
+    return max(cached.values())
+
+
 # recursion
 def find_largest_subset(nums: List[int]) -> int:
-
     def dfs(idx: int, path: List[int], max_length: int) -> int:
         if idx == -1:
             return max(max_length, len(path))
@@ -32,7 +53,6 @@ def find_largest_subset(nums: List[int]) -> int:
         return max_length
 
 
-# list all paths
 def find_largest_subset(nums: List[int]) -> List[List[int]]:
     nums.sort()
     res = []
