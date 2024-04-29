@@ -5,6 +5,24 @@ from typing import List
 def list_perfect_squares(n: int) -> int:
     nums = list(reversed([i for i in range(1, int(math.sqrt(n)) + 1)]))
 
+    def bfs(n: int, edges: List[int]):
+        from collections import deque
+
+        res = []
+        queue = deque([(n, [])])
+        while len(queue):
+            curr, path = queue.popleft()
+            if curr == 0:
+                res = path
+                break
+            for neighbor in edges:
+                tmp = []
+                remain = curr - neighbor**2
+                if remain >= 0:
+                    tmp.append(neighbor)
+                    queue.append((remain, path + tmp))
+        return res
+
     def list_all_paths(
         amount: int, path: List[int], res: List[List[int]]
     ) -> List[List[int]]:
