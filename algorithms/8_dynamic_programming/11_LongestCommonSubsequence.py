@@ -3,6 +3,20 @@ from typing import Dict
 
 def longest_common_subsequence(word1: str, word2: str) -> int:
 
+    def dynamic_programming():
+        m = len(word1)
+        n = len(word2)
+        dp = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
+
+        for r in range(m):
+            for c in range(n):
+                if word1[r] == word2[c]:
+                    dp[r + 1][c + 1] = 1 + dp[r][c]
+                else:
+                    dp[r + 1][c + 1] = max(dp[r][c + 1], dp[r + 1][c])
+
+        return dp[-1][-1]
+
     def dfs_cached(idx1: int, idx2: int, length: int, cached: Dict[int, int]) -> int:
         if (idx1, idx2) in cached:
             return cached[(idx1, idx2)]
@@ -29,6 +43,7 @@ def longest_common_subsequence(word1: str, word2: str) -> int:
 
     print(dfs(0, 0, 0))
     print(dfs_cached(0, 0, 0, {}))
+    print(dynamic_programming())
     return 0
 
 
