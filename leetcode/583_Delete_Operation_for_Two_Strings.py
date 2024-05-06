@@ -26,6 +26,23 @@ word1 and word2 consist of only lowercase English letters.
 def min_distance(w1: str, w2: str) -> int:
     m, n = len(w1), len(w2)
 
+    def dfs_cached(idxi: int, idxj: int, total: int, cached: dict[int, int]) -> int:
+        if (idxi, idxj) in cached:
+            return cached.get((idxi, idxj), 0)
+        if idxi >= m:
+            return n - idxj
+        if idxj >= n:
+            return m - idxi
+        if w1[idxi] == w2[idxj]:
+            total = dfs_cached(idxi + 1, idxj + 1, total, cached)
+        else:
+            total = 1 + min(
+                dfs_cached(idxi + 1, idxj, total, cached),
+                dfs_cached(idxi, idxj + 1, total, cached),
+            )
+        cached[(idxi, idxj)] = total
+        return total
+
     def dfs(idxi: int, idxj: int, total: int) -> int:
         if idxi >= m:
             return n - idxj
@@ -38,6 +55,7 @@ def min_distance(w1: str, w2: str) -> int:
         return total
 
     print(dfs(0, 0, 0))
+    print(dfs_cached(0, 0, 0, {}))
 
     return ""
 
